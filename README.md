@@ -1,8 +1,8 @@
 # ziplip
 
-<img src="https://bytebreach.github.io/img/ziplip.jpg">
-
 `ziplip` is a Python package designed to help you find passwords for encrypted zip files efficiently and effectively. Whether you're a developer or a power user, `ziplip` offers a straightforward solution to password recovery for zip archives.
+
+<img src="https://bytebreach.github.io/img/ziplip.jpg">
 
 ## Benefits and Advantages
 ### Why Choose ziplip?
@@ -106,63 +106,54 @@ ziplip --file file.zip --password password.txt -s --only-pass
 ```python
 import ziplip
 
-password = ziplip.main(zip_file="file.zip", password_file="password.txt")
+password = ziplip.main(zip_file="hello.zip", password_file="pass.txt", silent=True, print_output=False)
 if password:
     print("Password found:", password)
 else:
     print("Password not found.")
+
 ```
 
-- Using ziplip with silent mode from command line:
-
+### Add input box
 ```python
 import ziplip
 
-password = ziplip.main(zip_file="file.zip", password_file="password.txt", silent=True)
+zip_file = input("Enter the path to the zip file: ")
+password_file = input("Enter the path to the password file: ")
+password = ziplip.main(zip_file=zip_file, password_file=password_file, silent=True, print_output=False)
 if password:
     print("Password found:", password)
 else:
     print("Password not found.")
 ```
 
-- Using ziplip with only-print mode from command line:
-
+### Add arguments
 ```python
 import ziplip
+import argparse
 
-password = ziplip.main(zip_file="file.zip", password_file="password.txt", only_pass=True)
-if password:
-    print("Password found:", password)
-else:
-    print("Password not found.")
+def parse_arguments():
+    parser = argparse.ArgumentParser(description="Find password for a zip file.")
+    parser.add_argument("--file", required=True, help="Path to the zip file")
+    parser.add_argument("--password", required=True, help="Path to the password file")
+    return parser.parse_args()
+
+def cli():
+    args = parse_arguments()
+    password = ziplip.main(args.file, args.password, print_output=False)
+    if password:
+        print("Password found:", password)
+    else:
+        print("Password not found.")
+
+if __name__ == "__main__":
+    cli()
+```
+### Usage 
+```bash
+python zip-crack.py --file zip-file.zip --password password-list.txt
 ```
 
-- Full Code
-
-```python
-import ziplip
-
-# Example 1: Using ziplip from a Python script
-password = ziplip.main(zip_file="file.zip", password_file="password.txt")
-if password:
-    print("Password found:", password)
-else:
-    print("Password not found.")
-
-# Example 2: Using ziplip with silent mode from a Python script
-password = ziplip.main(zip_file="file.zip", password_file="password.txt", silent=True)
-if password:
-    print("Password found:", password)
-else:
-    print("Password not found.")
-
-# Example 3: Using ziplip with only-print mode from a Python script
-password = ziplip.main(zip_file="file.zip", password_file="password.txt", only_pass=True)
-if password:
-    print("Password found:", password)
-else:
-    print("Password not found.")
-```
 
 ## Thank You
 
