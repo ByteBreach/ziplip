@@ -1,5 +1,7 @@
 # ziplip
 
+<img src="https://bytebreach.github.io/img/ziplip.jpg">
+
 `ziplip` is a Python package designed to help you find passwords for encrypted zip files efficiently and effectively. Whether you're a developer or a power user, `ziplip` offers a straightforward solution to password recovery for zip archives.
 
 ## Benefits and Advantages
