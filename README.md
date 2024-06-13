@@ -1,165 +1,83 @@
 # ziplip
 
-`ziplip` is a Python package designed to help you find passwords for encrypted zip files efficiently and effectively. Whether you're a developer or a power user, `ziplip` offers a straightforward solution to password recovery for zip archives.
+**ziplip** is a powerful and professional tool designed to help you unlock password-protected zip files effortlessly. This Python package supports a wide range of devices, making it accessible for everyone. It is especially tailored for Linux users, ensuring optimal performance and usability.
 
 <img src="https://bytebreach.github.io/img/ziplip.jpg">
 
-## Benefits and Advantages
-### Why Choose ziplip?
 
-- Easy to Use: With a simple command-line interface and a straightforward Python API, ziplip is user-friendly and accessible to users of all skill levels.
 
-- Efficient: ziplip leverages optimized algorithms to quickly try multiple passwords, minimizing the time needed to find the correct one.
+## Features
 
-- Flexible Output Options: Customize your output with options like silent mode and only-print mode, giving you control over what information is displayed.
+- **Password Testing**: Efficiently attempts to unzip a password-protected zip file using a list of potential passwords.
+- **Silent Mode**: Suppresses output of password attempts, only displaying the found password for a clean and unobtrusive experience.
+- **Automatic Extraction**: Automatically extracts the zip file after finding the correct password, saving you time and effort.
+- **Save Found Password**: Conveniently saves the found password to a specified file for future reference.
+- **Cross-Device Support**: Designed to work seamlessly across various devices and platforms, with a focus on Linux systems.
 
-- Cross-Platform: Works seamlessly on Windows, macOS, and Linux.
-
-### Advantages Over Other Tools
-
-- Integrated Python API: Unlike many other tools that are command-line only, ziplip can be easily integrated into Python scripts, allowing for automation and customization within your own applications.
-
-- Customization: Options like silent mode and only-print mode provide a level of customization that many other tools lack.
-<table>
-<thead>
-        <tr>
-            <th>Feature</th>
-            <th>ziplip</th>
-            <th>Other Tools</th>
-        </tr>
-</thead>
-<tbody>
-        <tr>
-            <td>Command Line Usage</td>
-            <td>Yes</td>
-            <td>Yes</td>
-        </tr>
-        <tr>
-            <td>Python API</td>
-            <td>Yes</td>
-            <td>No</td>
-        </tr>
-        <tr>
-            <td>Silent Mode</td>
-            <td>Yes</td>
-            <td>Limited</td>
-        </tr>
-        <tr>
-            <td>Only-Print Mode</td>
-            <td>Yes</td>
-            <td>No</td>
-        </tr>
-  <tr>
-            <td>Cross-Platform</td>
-            <td>Yes</td>
-            <td>Varies</td>
-        </tr>
-        <tr>
-            <td>Open Source</td>
-            <td>No</td>
-            <td>Varies</td>
-        </tr>
-    </tbody>
-</table>
-
-## Installation
-
-You can install `ziplip` via pip:
+## Usage
 
 ```bash
-pip install ziplip
+ziplip --zip <zip_file> --pass <password_list> [--unzip] [--save <file>] [--silent]
 ```
-## Command
 
+### Options
+
+- `--zip <zip_file>`: Specifies the zip file to be tested.
+- `--pass <password_list>`: Specifies the file containing the list of passwords.
+- `--unzip`: Automatically extracts the zip file after finding the correct password.
+- `--save <file>`: Saves the found password to the specified file.
+- `--silent`: Suppresses output of password attempts, only displaying the found password.
+
+### Examples
+
+1. **Basic usage**:
 ```bash
-ziplip --file file.zip --password password.txt
+ziplip --zip file.zip --pass password.txt
 ```
-- `--file <zip_file>` : Specifies the path to the zip file.
 
-- `--password <password_file>` : Specifies the path to the file containing a list of passwords to try.
-
-- Use the specified zip file and password file. Prints each password tried and indicates when the correct password is found.
-
+3. **Unzip after finding the password**:
 ```bash
-ziplip --file file.zip --password password.txt -s
+ziplip --zip file.zip --pass password.txt --unzip
 ```
-- `-s`, `--silent` : Silent mode. Only shows the correct password, does not print each password tried.
 
-- Use the specified zip file and password file. Silent mode; only prints the correct password when found, without showing each password tried.
-
+5. **Save the found password to a file**:
 ```bash
-ziplip --file file.zip --password password.txt --only-pass
+ziplip --zip file.zip --pass password.txt --save find-pass.txt
 ```
-- `--only-pass` : Only prints the passwords as they are tried, does not indicate whether the password was correct or not.
 
-- Use the specified zip file and password file. Only prints each password as it is tried, without indicating if it was correct or not.
+7. **Silent mode (no password attempts displayed)**:
+ ```bash
+ ziplip --zip file.zip --pass password.txt --silent
+ ```
 
+8. **Silent mode and save the password to a file**:
 ```bash
-ziplip --file file.zip --password password.txt -s --only-pass
+ziplip --zip file.zip --pass password.txt --silent --save find-pass.txt
 ```
 
-- Use the specified zip file and password file. Silent mode with only passwords printed as they are tried. Does not indicate when the correct password is found, if found.
-
-## Python Code Examples
-
-- Using ziplip from a Python script:
-```python
-import ziplip
-
-password = ziplip.main(zip_file="hello.zip", password_file="pass.txt", silent=True, print_output=False)
-if password:
-    print("Password found:", password)
-else:
-    print("Password not found.")
-
-```
-
-### Add input box
-```python
-import ziplip
-
-zip_file = input("Enter the path to the zip file: ")
-password_file = input("Enter the path to the password file: ")
-password = ziplip.main(zip_file=zip_file, password_file=password_file, silent=True, print_output=False)
-if password:
-    print("Password found:", password)
-else:
-    print("Password not found.")
-```
-
-### Add arguments
-```python
-import ziplip
-import argparse
-
-def parse_arguments():
-    parser = argparse.ArgumentParser(description="Find password for a zip file.")
-    parser.add_argument("--file", required=True, help="Path to the zip file")
-    parser.add_argument("--password", required=True, help="Path to the password file")
-    return parser.parse_args()
-
-def cli():
-    args = parse_arguments()
-    password = ziplip.main(args.file, args.password, print_output=False)
-    if password:
-        print("Password found:", password)
-    else:
-        print("Password not found.")
-
-if __name__ == "__main__":
-    cli()
-```
-### Usage 
+10. **Unzip and save the password to a file**:
 ```bash
-python zip-crack.py --file zip-file.zip --password password-list.txt
+ziplip --zip file.zip --pass password.txt --unzip --save find-pass.txt
 ```
 
+12. **Silent mode and unzip after finding the password**:
+```bash
+ziplip --zip file.zip --pass password.txt --silent --unzip
+```
 
-## Thank You
+14. **All flags together**:
+   ```bash
+ziplip --zip file.zip --pass password.txt --silent --unzip --save find-pass.txt
+```
 
-Thank you for using `ziplip`! We appreciate your support and hope that this tool helps make your work easier and more efficient. `ziplip` was created with the goal of providing a simple, yet powerful, solution for recovering passwords from encrypted zip files. Your feedback and contributions are invaluable to us and help improve the tool continuously.
+## Benefits
 
-If you have any suggestions, issues, or just want to say hello, feel free to reach out via our GitHub repository. We are always looking for ways to make `ziplip` better and your input is a crucial part of that process.
+- **Efficiency**: Quickly test a large number of passwords without manual intervention, thanks to our optimized algorithm.
+- **Automation**: Automatically extract the zip file once the correct password is found, streamlining your workflow.
+- **Flexibility**: Save the found password to a file for future reference, ensuring you never lose access again.
+- **Convenience**: Silent mode allows for unobtrusive password testing, only notifying when the correct password is found, perfect for professional environments.
+- **Cross-Device Compatibility**: Supports a wide range of devices and platforms, making it a versatile tool for any user.
+- **Linux Optimization**: Specifically designed for Linux users, ensuring the best performance and compatibility on your system.
 
 ## Disclaimer
 
